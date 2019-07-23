@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConectionService } from '../../services/conection.service';
 import { Products } from '../../models/products';
 
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-products',
@@ -11,7 +11,7 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 })
 export class ProductsComponent implements OnInit {
   items: Products[];
-  icons = { faCoffee };
+  icons = { faEdit, faTrash };
 
   constructor(private conexion: ConectionService) {
   }
