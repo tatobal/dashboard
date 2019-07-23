@@ -1,14 +1,15 @@
 <div class="container">
+ <div class="row">
+   <div class="col-md-6">
+    <h1>Productos</h1>
+   </div>
+   <div class="col-md-6">
+    <p>
+      <ngb-alert [dismissible]="false" *ngFor="let item of items">
+        <strong>{{item.name}}</strong> <fa-icon [icon]="icons.faCoffee"></fa-icon>
+      </ngb-alert>
+    </p>
+   </div>
+ </div>
 
-  <div class="alert alert-primary" role="alert">
-    A simple primary alert—check it out!
-  </div>
-  <p>
-    <ngb-alert [dismissible]="false">
-      <strong>Warning!</strong> Better check yourself, you're not looking too good.
-    </ngb-alert>
-  </p>
-  <p *ngFor="let item of items">
-    {{item.id}} - {{item.name}}
-  </p>
 </div>
