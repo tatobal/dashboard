@@ -10,7 +10,8 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  items: Products[];
+  product = {} as Products;
+  products: Products[];
   icons = { faEdit, faTrash };
 
   constructor(private conexion: ConectionService) {
@@ -18,8 +19,17 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     this.conexion.getProducts().subscribe(data => {
-      this.items = data;
+      this.products = data;
     });
+  }
+
+  addProduct() {
+    this.conexion.addProducts(this.product);
+    this.product = {} as Products;
+  }
+
+  deleteProduct(product) {
+    this.conexion.deleteProduct(product);
   }
 
 }

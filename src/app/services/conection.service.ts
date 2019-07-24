@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Products } from '../models/products';
 import { map } from 'rxjs/operators';
@@ -9,11 +9,14 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ConectionService {
-  items: Observable<Products[]>;
-  itemsCollection: any;
+  productsCollection: AngularFirestoreCollection<Products>;
+  products: Observable<Products[]>;
+  productsDoc: AngularFirestoreDocument<Products>;
 
   constructor(private db: AngularFirestore) {
-    this.items = this.db.collection('items').snapshotChanges().pipe(
+    this.productsCollection = this.db.collection('items');
+
+    this.products = this.productsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Products;
         const id = a.payload.doc.id;
@@ -22,6 +25,15 @@ export class ConectionService {
   }
 
   getProducts() {
-    return this.items;
+    return this.products;
+  }
+
+  addProducts(product: Products) {
+    this.productsCollection.add(product);
+  }
+
+  deleteProduct(product: Products) {
+    this.productsDoc = this.db.doc(`items/${product.id}`);
+    this.productsDoc.delete();
   }
 }

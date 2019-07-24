@@ -1,7 +1,12 @@
 <div class="container">
  <div class="row">
    <div class="col-md-4">
-    <h1>Productos</h1>
+    <h1>Agregar Producto</h1>
+    <form (ngSubmit)="addProduct()">
+      <input type="text" name="name" [(ngModel)]="product.name">
+      <input type="number" name="price" [(ngModel)]="product.price">
+      <button tyoe="submit">Agregar Producto</button>
+    </form>
    </div>
    <div class="col-md-8">
      <h3 class="mb-3">Lista de Productos</h3>
@@ -16,17 +21,17 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of items; index as i">
+      <tr *ngFor="let product of products; index as i">
         <th scope="row">{{ i + 1 }}</th>
         <td>
         
-          {{ item.name }}
+          {{ product.name }}
         </td>
-        <td>{{ item.id }}</td>
-        <td>{{ item.price }}</td>
+        <td>{{ product.id }}</td>
+        <td>{{ product.price }}</td>
         <td>
           <button class="btn btn-success"><fa-icon [icon]="icons.faEdit"></fa-icon></button>
-          <button class="btn btn-danger ml-1"><fa-icon [icon]="icons.faTrash"></fa-icon></button>
+          <button class="btn btn-danger ml-1" (click)="deleteProduct(product)"><fa-icon [icon]="icons.faTrash"></fa-icon></button>
         </td>
       </tr>
       </tbody>
