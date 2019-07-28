@@ -17,11 +17,13 @@ import { environment } from '../environments/environment';
 
 // SERVICES
 import { ConectionService } from './services/conection.service';
+import { HeaderAdminComponent } from './admin/header-admin/header-admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsComponent
+    ProductsComponent,
+    HeaderAdminComponent
   ],
   imports: [
     BrowserModule,
