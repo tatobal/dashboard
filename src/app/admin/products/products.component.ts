@@ -36,7 +36,7 @@ export class ProductsComponent implements OnInit {
     this.newProduct = true;
     setTimeout(() => {
       this.newProduct = false;
-    }, 1500);
+    }, 2000);
   }
 
   deleteProduct(product) {
@@ -45,7 +45,7 @@ export class ProductsComponent implements OnInit {
     this.deletePro = true;
     setTimeout(() => {
       this.deletePro = false;
-    }, 1500);
+    }, 2000);
 
   }
 

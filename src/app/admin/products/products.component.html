@@ -1,9 +1,9 @@
 <app-header-admin></app-header-admin>
 <div *ngIf="newProduct" class="producto-agregado" >
-  <ngb-alert type="success">Agregado correctamente</ngb-alert>
+  <ngb-alert type="success" [dismissible]="false"><strong>Agregado</strong> correctamente</ngb-alert>
 </div>
 <div *ngIf="deletePro" class="producto-agregado">
-  <ngb-alert type="success">Producto eliminado</ngb-alert>
+  <ngb-alert type="success" [dismissible]="false">Producto<strong> eliminado</strong></ngb-alert>
 </div>
 <div class="mx-5 mt-5">
  <div class="row">
