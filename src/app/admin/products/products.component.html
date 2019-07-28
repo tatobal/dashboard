@@ -1,5 +1,11 @@
 <app-header-admin></app-header-admin>
-<div class="mx-5">
+<div *ngIf="newProduct" class="producto-agregado" >
+  <ngb-alert type="success">Agregado correctamente</ngb-alert>
+</div>
+<div *ngIf="deletePro" class="producto-agregado">
+  <ngb-alert type="success">Producto eliminado</ngb-alert>
+</div>
+<div class="mx-5 mt-5">
  <div class="row">
    <div class="col-md-5">
     <h3>Agregar Producto</h3>
@@ -14,7 +20,7 @@
           <input type="number" name="price" class="form-control" [(ngModel)]="product.price" placeholder="">
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Agregar Producto</button>
+      <button type="submit" class="btn btn-primary"><fa-icon [icon]="icons.faPlusCircle"></fa-icon> Agregar Producto</button>
     </form>
    </div>
    <div class="col-md-7">
@@ -34,8 +40,8 @@
         <td>{{ product.name }} </td>
         <td>{{ product.price }}</td>
         <td>
-          <button class="btn btn-success"><fa-icon [icon]="icons.faEdit"></fa-icon></button>
-          <button class="btn btn-danger ml-1" (click)="openQuestionDelete(questionDelete)"><fa-icon [icon]="icons.faTrash"></fa-icon></button>
+          <button class="btn btn-success" ngbTooltip="Editar"><fa-icon [icon]="icons.faEdit"></fa-icon></button>
+          <button class="btn btn-danger ml-1" (click)="openQuestionDelete(questionDelete)" ngbTooltip="Eliminar"><fa-icon [icon]="icons.faTrash"></fa-icon></button>
         </td>
         <ng-template #questionDelete let-c="close" let-d="dismiss">
           <div class="modal-header">

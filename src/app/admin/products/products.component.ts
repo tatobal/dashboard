@@ -3,7 +3,7 @@ import { ConectionService } from '../../services/conection.service';
 import { Products } from '../../models/products';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { faEdit, faTrash, faBan } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faBan, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-products',
@@ -14,9 +14,13 @@ import { faEdit, faTrash, faBan } from '@fortawesome/free-solid-svg-icons';
 export class ProductsComponent implements OnInit {
   product = {} as Products;
   products: Products[];
-  icons = { faEdit, faTrash, faBan };
+  newProduct: boolean;
+  deletePro: boolean;
+  icons = { faEdit, faTrash, faBan, faPlusCircle };
 
   constructor(private conexion: ConectionService, config: NgbModalConfig, private modalService: NgbModal) {
+    this.newProduct = false;
+    this.deletePro = false;
   }
 
   ngOnInit() {
@@ -28,11 +32,20 @@ export class ProductsComponent implements OnInit {
   addProduct() {
     this.conexion.addProducts(this.product);
     this.product = {} as Products;
+    this.newProduct = true;
+    setTimeout(() => {
+      this.newProduct = false;
+    }, 1500);
   }
 
   deleteProduct(product) {
     this.conexion.deleteProduct(product);
     this.modalService.dismissAll();
+    this.deletePro = true;
+    setTimeout(() => {
+      this.deletePro = false;
+    }, 1500);
+
   }
 
   openQuestionDelete(questionDelete) {
