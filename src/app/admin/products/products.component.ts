@@ -12,6 +12,7 @@ import { faEdit, faTrash, faBan, faPlusCircle } from '@fortawesome/free-solid-sv
   providers: [NgbModalConfig, NgbModal]
 })
 export class ProductsComponent implements OnInit {
+  p = 1;
   product = {} as Products;
   products: Products[];
   newProduct: boolean;
