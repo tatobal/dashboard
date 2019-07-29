@@ -39,6 +39,6 @@ export class ConectionService {
   }
 
   login(email: string, password: string): any {
-    this.auth.auth.signInWithEmailAndPassword(email, password);
+    return this.auth.auth.signInWithEmailAndPassword(email, password);
   }
 }

@@ -27,11 +27,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    /* console.log('Te estas logeando');
+    console.log('Te estas logeando');
     console.log('Email: ', this.email);
     console.log('Password:', this.password);
     this.conectionService.login(this.email, this.password).then(value => {
       this.msg = value;
+      this.router.navigate(['admin/products']);
       this.display = true;
       console.log('Entraste');
     })
@@ -42,11 +43,11 @@ export class LoginComponent implements OnInit {
       });
     this.email = '';
     this.password = '';
-  } */
-  this.conectionService.login(this.email, this.password).then((res) => {
+  }
+  /* this.conectionService.login(this.email, this.password).then((res) => {
     this.router.navigate(['admin/products']);
   }).catch(err => console.log('err', err.message));
 
-  }
+  } */
 
 }
