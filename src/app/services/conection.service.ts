@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { Products } from '../models/products';
 import { map } from 'rxjs/operators';
@@ -13,7 +14,7 @@ export class ConectionService {
   products: Observable<Products[]>;
   productsDoc: AngularFirestoreDocument<Products>;
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, private auth: AngularFireAuth) {
     this.productsCollection = this.db.collection('items');
 
     this.products = this.productsCollection.snapshotChanges().pipe(
@@ -35,5 +36,9 @@ export class ConectionService {
   deleteProduct(product: Products) {
     this.productsDoc = this.db.doc(`items/${product.id}`);
     this.productsDoc.delete();
+  }
+
+  login(email: string, password: string): any {
+    this.auth.auth.signInWithEmailAndPassword(email, password);
   }
 }

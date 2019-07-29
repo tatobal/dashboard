@@ -14,6 +14,7 @@ import { faEdit, faTrash, faBan, faPlusCircle } from '@fortawesome/free-solid-sv
 export class ProductsComponent implements OnInit {
   p = 1;
   product = {} as Products;
+  editProduct;
   products: Products[];
   newProduct: boolean;
   deletePro: boolean;
@@ -51,5 +52,14 @@ export class ProductsComponent implements OnInit {
 
   openQuestionDelete(questionDelete) {
     this.modalService.open(questionDelete, { centered: true });
+  }
+
+  detailProduct(detailProductModal) {
+    this.modalService.open(detailProductModal, { centered: true });
+  }
+
+  editingProduct() {
+    this.conexion.addProducts(this.editProduct);
+    this.product = {} as Products;
   }
 }

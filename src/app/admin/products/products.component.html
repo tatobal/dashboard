@@ -40,9 +40,38 @@
         <td>{{ product.name }} </td>
         <td>{{ product.price }}</td>
         <td>
-          <button class="btn btn-success" ngbTooltip="Editar"><fa-icon [icon]="icons.faEdit"></fa-icon></button>
+          <button class="btn btn-success" (click)="detailProduct(detailProductModal)" ngbTooltip="Editar"><fa-icon [icon]="icons.faEdit"></fa-icon></button>
           <button class="btn btn-danger ml-1" (click)="openQuestionDelete(questionDelete)" ngbTooltip="Eliminar"><fa-icon [icon]="icons.faTrash"></fa-icon></button>
         </td>
+        <ng-template #detailProductModal let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Detalle de {{ product.name }}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           <!--  <p><strong>Nombre producto:</strong> {{product.name}}</p>
+            <p><strong>Precio producto:</strong> {{product.price}}</p> -->
+            <form (ngSubmit)="editingProduct()" class="mt-4">
+              <div class="row">
+                <div class="form-group col-md-8">
+                  <label for="exampleInputEmail1">Nombre producto</label>
+                  <input type="text" name="name" class="form-control" [(ngModel)]="product.name" placeholder="product.name">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="exampleInputEmail1">Precio</label>
+                  <input type="number" name="price" class="form-control" [(ngModel)]="product.price" placeholder="product.price">
+                </div>
+              </div>
+             
+              <button type="button" class="btn btn-outline-secondary" (click)="d('Cross click')"><fa-icon [icon]="icons.faBan"></fa-icon> Cancelar</button>
+              <button type="submit" ngbAutofocus class="btn btn-success"><fa-icon [icon]="icons.faEdit"></fa-icon> Editar</button>
+           
+            </form>
+          </div>
+         
+        </ng-template>
         <ng-template #questionDelete let-c="close" let-d="dismiss">
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Eliminar {{ product.name }}</h4>
