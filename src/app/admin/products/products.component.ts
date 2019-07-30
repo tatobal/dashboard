@@ -14,15 +14,14 @@ import { faEdit, faTrash, faBan, faPlusCircle } from '@fortawesome/free-solid-sv
 export class ProductsComponent implements OnInit {
   p = 1;
   product = {} as Products;
-  editProduct;
+  editProduct = {} as Products;
   products: Products[];
-  newProduct: boolean;
-  deletePro: boolean;
+  alert: boolean;
+  message: string;
   icons = { faEdit, faTrash, faBan, faPlusCircle };
 
   constructor(private conexion: ConectionService, config: NgbModalConfig, private modalService: NgbModal) {
-    this.newProduct = false;
-    this.deletePro = false;
+    this.alert = false;
   }
 
   ngOnInit() {
@@ -34,32 +33,45 @@ export class ProductsComponent implements OnInit {
   addProduct() {
     this.conexion.addProducts(this.product);
     this.product = {} as Products;
-    this.newProduct = true;
+    this.alert = true;
+    this.message = `<strong>Agregado exitosamente</strong>`;
     setTimeout(() => {
-      this.newProduct = false;
+      this.alert = false;
     }, 2000);
   }
 
   deleteProduct(product) {
     this.conexion.deleteProduct(product);
     this.modalService.dismissAll();
-    this.deletePro = true;
+    this.alert = true;
+    this.message = `<strong>Eliminado</strong> exitosamente`;
     setTimeout(() => {
-      this.deletePro = false;
+      this.alert = false;
     }, 2000);
+  }
 
+  updateProduct(product) {
+    this.editProduct = product;
+    this.conexion.updateProducts(this.editProduct);
+    this.modalService.dismissAll();
+    this.alert = true;
+    this.message = `<strong>Editado</strong> exitosamente`;
+    setTimeout(() => {
+      this.alert = false;
+    }, 2000);
   }
 
   openQuestionDelete(questionDelete) {
     this.modalService.open(questionDelete, { centered: true });
   }
 
-  detailProduct(detailProductModal) {
+  detailProduct(detailProductModal, product) {
     this.modalService.open(detailProductModal, { centered: true });
+    this.editProduct = product;
   }
 
-  editingProduct() {
+/*   editingProduct() {
     this.conexion.addProducts(this.editProduct);
     this.product = {} as Products;
-  }
+  } */
 }

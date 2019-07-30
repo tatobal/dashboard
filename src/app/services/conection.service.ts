@@ -33,6 +33,11 @@ export class ConectionService {
     this.productsCollection.add(product);
   }
 
+  updateProducts(product: Products) {
+    this.productsDoc = this.db.doc(`items/${product.id}`);
+    this.productsDoc.update(product);
+  }
+
   deleteProduct(product: Products) {
     this.productsDoc = this.db.doc(`items/${product.id}`);
     this.productsDoc.delete();
