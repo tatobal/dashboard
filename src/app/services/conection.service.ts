@@ -43,7 +43,4 @@ export class ConectionService {
     this.productsDoc.delete();
   }
 
-  login(email: string, password: string): any {
-    return this.auth.auth.signInWithEmailAndPassword(email, password);
-  }
 }

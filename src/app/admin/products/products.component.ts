@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConectionService } from '../../services/conection.service';
+import { LoginService } from '../../services/login.service';
 import { Products } from '../../models/products';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { faEdit, faTrash, faBan, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -20,7 +21,12 @@ export class ProductsComponent implements OnInit {
   message: string;
   icons = { faEdit, faTrash, faBan, faPlusCircle };
 
-  constructor(private conexion: ConectionService, config: NgbModalConfig, private modalService: NgbModal) {
+  constructor(
+    private conexion: ConectionService,
+    config: NgbModalConfig,
+    private modalService: NgbModal,
+    private login: LoginService,
+    private router: Router) {
     this.alert = false;
   }
 
@@ -70,8 +76,8 @@ export class ProductsComponent implements OnInit {
     this.editProduct = product;
   }
 
-/*   editingProduct() {
-    this.conexion.addProducts(this.editProduct);
-    this.product = {} as Products;
-  } */
+  logout() {
+    this.login.logout();
+    this.router.navigate(['/admin']);
+  }
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
-import { ConectionService } from '../../services/conection.service';
+import { LoginService } from '../../services/login.service';
 
 
 @Component({
@@ -18,7 +17,7 @@ export class LoginComponent implements OnInit {
   display = false;
 
 
-  constructor(public conectionService: ConectionService, public afAuth: AngularFireAuth, private router: Router) {
+  constructor(public loginService: LoginService, public afAuth: AngularFireAuth, private router: Router) {
     console.log(this.email);
   }
 
@@ -27,27 +26,16 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('Te estas logeando');
-    console.log('Email: ', this.email);
-    console.log('Password:', this.password);
-    this.conectionService.login(this.email, this.password).then(value => {
+    this.loginService.login(this.email, this.password).then(value => {
       this.msg = value;
       this.router.navigate(['admin/products']);
       this.display = true;
-      console.log('Entraste');
     })
       .catch(err => {
-        console.log('Algo saliò mal');
         this.msg = err.message;
         this.display = true;
       });
     this.email = '';
     this.password = '';
   }
-  /* this.conectionService.login(this.email, this.password).then((res) => {
-    this.router.navigate(['admin/products']);
-  }).catch(err => console.log('err', err.message));
-
-  } */
-
 }
