@@ -1,102 +1,188 @@
+<app-header-admin></app-header-admin>
 
-<p (click)="logout()">Salir</p>
-
-<div *ngIf="alert" class="producto-agregado" >
+<div *ngIf="alert" class="producto-agregado">
   <ngb-alert type="success" [dismissible]="false" [innerHTML]="message"></ngb-alert>
 </div>
 <div class="mx-5 mt-5">
- <div class="row">
-   <div class="col-md-5">
-    <h3>Agregar Producto</h3>
-    <form (ngSubmit)="addProduct()" class="mt-4">
-      <div class="row">
-        <div class="form-group col-md-8">
-          <label for="exampleInputEmail1">Nombre producto</label>
-          <input type="text" name="name" class="form-control" [(ngModel)]="product.name" placeholder="">
+  <div class="row">
+    <div class="col-md-5">
+      <h3>Agregar Producto</h3>
+      <form (ngSubmit)="addProduct()" class="mt-4">
+        <div class="row">
+          <div class="form-group col-md-8">
+            <label for="exampleInputEmail1">Nombre producto</label>
+            <input type="text" name="name" class="form-control" [(ngModel)]="product.name" placeholder="">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="exampleInputEmail1">Precio</label>
+            <input type="number" name="price" class="form-control" [(ngModel)]="product.price" placeholder="">
+          </div>
         </div>
-        <div class="form-group col-md-4">
-          <label for="exampleInputEmail1">Precio</label>
-          <input type="number" name="price" class="form-control" [(ngModel)]="product.price" placeholder="">
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="exampleInputEmail1">Categoría</label>
+            <select class="form-control" name="category" [(ngModel)]="product.category"
+              (change)="product.category = $event.target.value">
+              <option *ngFor="let categoria of categorias" [value]="categoria">
+                {{ categoria }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="exampleInputEmail1">Estado</label>
+            <select class="form-control" [(ngModel)]="product.show" name="show"
+              (change)="product.show = $event.target.value">
+              <option *ngFor="let estado of estados" [value]="estado.status">
+                {{ estado.nombre }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="exampleInputEmail1">Oferta</label>
+            <select class="form-control" [(ngModel)]="product.sale" name="sale"
+              (change)="product.sale = $event.target.value">
+              <option *ngFor="let oferta of ofertas" [value]="oferta.status">
+                {{ oferta.nombre }}
+              </option>
+            </select>
+          </div>
         </div>
-      </div>
-      <button type="submit" class="btn btn-primary"><fa-icon [icon]="icons.faPlusCircle"></fa-icon> Agregar Producto</button>
-    </form>
-   </div>
-   <div class="col-md-7">
-     <h3 class="mb-3">Lista de Productos</h3>
-     <table class="table table-striped">
-      <thead>
-      <tr>
-        <!-- <th scope="col">#</th> -->
-        <th scope="col">Nombre</th>
-        <th scope="col">Precio</th>
-        <th scope="col">Acciones</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let product of products | paginate: { itemsPerPage: 10, currentPage: p}; let i = index;">
-        <!-- <th scope="row">{{ i + 1 }}</th> -->
-        <td>{{ product.name }} </td>
-        <td>{{ product.price }}</td>
-        <td>
-          <button class="btn btn-success" (click)="detailProduct(detailProductModal, product)" ngbTooltip="Editar"><fa-icon [icon]="icons.faEdit"></fa-icon></button>
-          <button class="btn btn-danger ml-1" (click)="openQuestionDelete(questionDelete)" ngbTooltip="Eliminar"><fa-icon [icon]="icons.faTrash"></fa-icon></button>
-        </td>
-        <ng-template #detailProductModal let-c="close" let-d="dismiss">
-          <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Detalle</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-              <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="exampleInputEmail1">Detalles</label>
+            <textarea class="form-control" aria-label="With textarea" name="detail" type="text"
+              [(ngModel)]="product.detail"></textarea>
+            <!--   <input type="text" name="detail" class="form-control" placeholder=""> -->
           </div>
-          <div class="modal-body">
-           <!--  <p><strong>Nombre producto:</strong> {{product.name}}</p>
-            <p><strong>Precio producto:</strong> {{product.price}}</p> -->
-            <form  class="mt-4">
-              <div class="row">
-                <div class="form-group col-md-8">
-                  <label for="exampleInputEmail1">Nombre producto</label>
-                  <input type="text" name="name" class="form-control" [(ngModel)]="editProduct.name" placeholder="{{editProduct.name}}">
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="exampleInputEmail1">Precio</label>
-                  <input type="number" name="price" class="form-control" [(ngModel)]="editProduct.price" placeholder="editProduct.price">
-                </div>
-              </div>
-              <button type="button" class="btn btn-outline-secondary" (click)="d('Cross click')"><fa-icon [icon]="icons.faBan"></fa-icon> Cancelar</button>
-              <button type="button" ngbAutofocus class="btn btn-success" (click)="updateProduct(product)"><fa-icon [icon]="icons.faEdit"></fa-icon> Editar</button>
-            </form>
-          </div>
-         
-        </ng-template>
-        <ng-template #questionDelete let-c="close" let-d="dismiss">
-          <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Eliminar {{ product.name }}</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>¿Seguro que deseas eliminar {{ product.name }}?</p>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" (click)="d('Cross click')"><fa-icon [icon]="icons.faBan"></fa-icon> Cancelar</button>
-            <button type="button" ngbAutofocus class="btn btn-danger" (click)="deleteProduct(product)"><fa-icon [icon]="icons.faTrash"></fa-icon> Elimnar</button>
-          </div>
-        </ng-template>
-      </tr>
-      </tbody>
-    </table>
-    <div class="text-center">
-      <pagination-controls 
-    (pageChange)="p = $event"
-    maxSize="9"
-    directionLinks="true"
-    autoHide="true"
-    responsive="true"
-    previousLabel="Atràs"
-    nextLabel="Siguiente"></pagination-controls>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">
+          <fa-icon [icon]="icons.faPlusCircle"></fa-icon> Agregar Producto
+        </button>
+      </form>
     </div>
-   </div>
- </div>
+    <div class="col-md-7">
+      <h3 class="mb-3">Lista de Productos</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <!-- <th scope="col">#</th> -->
+            <th scope="col">Nombre</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Oferta</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products | paginate: { itemsPerPage: 10, currentPage: p}; let i = index;">
+            <!-- <th scope="row">{{ i + 1 }}</th> -->
+            <td>{{ product.name }} </td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.show === 'true' ? 'Habilitado' : 'Deshabilitado' }}</td>
+            <td>{{ product.sale === 'true' ? 'En Oferta' : 'Sin Oferta' }}</td>
+            <td>
+              <button class="btn btn-success" (click)="detailProduct(detailProductModal, product)" ngbTooltip="Editar">
+                <fa-icon [icon]="icons.faEdit"></fa-icon>
+              </button>
+              <button class="btn btn-danger ml-1" (click)="openQuestionDelete(questionDelete)" ngbTooltip="Eliminar">
+                <fa-icon [icon]="icons.faTrash"></fa-icon>
+              </button>
+            </td>
+            <ng-template #detailProductModal let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Detalle</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!--  <p><strong>Nombre producto:</strong> {{product.name}}</p>
+            <p><strong>Precio producto:</strong> {{product.price}}</p> -->
+                <form class="mt-4">
+                  <div class="row">
+                    <div class="form-group col-md-8">
+                      <label for="exampleInputEmail1">Nombre producto</label>
+                      <input type="text" name="name" class="form-control" [(ngModel)]="editProduct.name"
+                        placeholder="{{editProduct.name}}">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="exampleInputEmail1">Precio</label>
+                      <input type="number" name="price" class="form-control" [(ngModel)]="editProduct.price"
+                        placeholder="{{editProduct.price}}">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-4">
+                      <label for="exampleInputEmail1">Categoría</label>
+                      <select class="form-control" name="category" [(ngModel)]="editProduct.category"
+                        (change)="product.category = $event.target.value">
+                        <option *ngFor="let categoria of categorias" [value]="categoria">
+                          {{ categoria }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="exampleInputEmail1">Estado</label>
+                      <select class="form-control" [(ngModel)]="editProduct.show" name="show"
+                        (change)="editProduct.show = $event.target.value">
+                        <option *ngFor="let estado of estados" [value]="estado.status">
+                          {{ estado.nombre }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="exampleInputEmail1">Oferta</label>
+                      <select class="form-control" [(ngModel)]="editProduct.sale" name="sale"
+                        (change)="editProduct.sale = $event.target.value">
+                        <option *ngFor="let oferta of ofertas" [value]="oferta.status">
+                          {{ oferta.nombre }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-12">
+                      <label for="exampleInputEmail1">Detalles</label>
+                      <textarea class="form-control" aria-label="With textarea" name="detail" type="text"
+                        [(ngModel)]="editProduct.detail" placeholder="{{editProduct.detail}}"></textarea>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-outline-secondary" (click)="d('Cross click')">
+                    <fa-icon [icon]="icons.faBan"></fa-icon> Cancelar
+                  </button>
+                  <button type="button" ngbAutofocus class="btn btn-success" (click)="updateProduct(product)">
+                    <fa-icon [icon]="icons.faEdit"></fa-icon> Editar
+                  </button>
+                </form>
+              </div>
+
+            </ng-template>
+            <ng-template #questionDelete let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Eliminar {{ product.name }}</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>¿Seguro que deseas eliminar {{ product.name }}?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" (click)="d('Cross click')">
+                  <fa-icon [icon]="icons.faBan"></fa-icon> Cancelar
+                </button>
+                <button type="button" ngbAutofocus class="btn btn-danger" (click)="deleteProduct(product)">
+                  <fa-icon [icon]="icons.faTrash"></fa-icon> Elimnar
+                </button>
+              </div>
+            </ng-template>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center">
+        <pagination-controls (pageChange)="p = $event" maxSize="9" directionLinks="true" autoHide="true"
+          responsive="true" previousLabel="Atràs" nextLabel="Siguiente"></pagination-controls>
+      </div>
+    </div>
+  </div>
 </div>

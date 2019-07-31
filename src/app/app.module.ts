@@ -9,6 +9,7 @@ import { AdministradorModule } from '../app/admin/administrador.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductsComponent } from './admin/products/products.component';
+import { HeaderAdminComponent } from './admin/header-admin/header-admin.component';
 
 // FIREBASE
 import { AngularFireModule } from '@angular/fire';
@@ -24,6 +25,7 @@ import { ConectionService } from './services/conection.service';
   declarations: [
     AppComponent,
     ProductsComponent,
+    HeaderAdminComponent
   ],
   imports: [
     AdministradorModule,
