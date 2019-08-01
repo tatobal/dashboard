@@ -17,7 +17,10 @@
     </div>
     <form (ngSubmit)="login()" class="log-in" autocomplete="off">
       <h4>Administración <span><br>AngularFirebase</span></h4>
-      <p>Para iniciar sesión, debes ingresar tu correo y contraseña.</p>
+      <p class="mb-2">Para iniciar sesión, debes ingresar tu correo y contraseña.</p>
+      <div class="alert alert-danger mx-auto mb-2" role="alert" *ngIf="error">
+        Usuario y/o contraseña inválida
+      </div>
       <div class="floating-label">
         <input placeholder="Email" type="text" name="email" [(ngModel)]="email">
         <label for="email">Correo Electrónico:</label>

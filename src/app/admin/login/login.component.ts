@@ -15,10 +15,10 @@ export class LoginComponent implements OnInit {
   password: string;
   msg: string;
   display = false;
+  error = false;
 
 
   constructor(public loginService: LoginService, public afAuth: AngularFireAuth, private router: Router) {
-    console.log(this.email);
   }
 
 
@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
       .catch(err => {
         this.msg = err.message;
         this.display = true;
+        this.error = true;
       });
     this.email = '';
     this.password = '';

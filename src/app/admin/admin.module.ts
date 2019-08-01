@@ -10,4 +10,4 @@ import { LoginComponent } from './login/login.component';
     FormsModule
   ]
 })
-export class AdministradorModule { }
+export class AdminModule { }
