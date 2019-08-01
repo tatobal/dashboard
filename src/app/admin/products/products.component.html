@@ -55,7 +55,7 @@
             <!--   <input type="text" name="detail" class="form-control" placeholder=""> -->
           </div>
         </div>
-        <button type="submit" class="btn btn-primary mt-3">
+        <button type="submit" class="btn btn-primary mt-1 float-right" style="background: #2a7cd3 !important">
           <fa-icon [icon]="icons.faPlusCircle"></fa-icon> Agregar Producto
         </button>
       </form>
@@ -74,17 +74,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let product of products | paginate: { itemsPerPage: 10, currentPage: p}; let i = index;">
+          <tr *ngFor="let product of products | paginate: { itemsPerPage: 7, currentPage: p}; let i = index;">
             <!-- <th scope="row">{{ i + 1 }}</th> -->
             <td>{{ product.name }} </td>
-            <td>{{ product.price }}</td>
+            <td>$ {{ product.price }}</td>
             <td>{{ product.show === 'true' ? 'Habilitado' : 'Deshabilitado' }}</td>
             <td>{{ product.sale === 'true' ? 'En Oferta' : 'Sin Oferta' }}</td>
             <td>
-              <button class="btn btn-success" (click)="detailProduct(detailProductModal, product)" ngbTooltip="Editar">
+              <button class="btn btn-success" style="opacity: .8" (click)="detailProduct(detailProductModal, product)" ngbTooltip="Editar">
                 <fa-icon [icon]="icons.faEdit"></fa-icon>
               </button>
-              <button class="btn btn-danger ml-1" (click)="openQuestionDelete(questionDelete)" ngbTooltip="Eliminar">
+              <button class="btn btn-danger ml-1" style="opacity: .8" (click)="openQuestionDelete(questionDelete)" ngbTooltip="Eliminar">
                 <fa-icon [icon]="icons.faTrash"></fa-icon>
               </button>
             </td>
@@ -147,12 +147,14 @@
                         [(ngModel)]="editProduct.detail" placeholder="{{editProduct.detail}}"></textarea>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-outline-secondary" (click)="d('Cross click')">
+                 <div class="d-flex float-right">
+                  <button type="button" class="btn btn-outline-secondary mr-2" (click)="d('Cross click')">
                     <fa-icon [icon]="icons.faBan"></fa-icon> Cancelar
                   </button>
                   <button type="button" ngbAutofocus class="btn btn-success" (click)="updateProduct(product)">
                     <fa-icon [icon]="icons.faEdit"></fa-icon> Editar
                   </button>
+                 </div>
                 </form>
               </div>
 
