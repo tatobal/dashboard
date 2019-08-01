@@ -10,17 +10,17 @@
       <form (ngSubmit)="addProduct()" class="mt-4">
         <div class="row">
           <div class="form-group col-md-8">
-            <label for="exampleInputEmail1">Nombre producto</label>
+            <label for="exampleInputEmail1" class="mb-1">Nombre producto</label>
             <input type="text" name="name" class="form-control" [(ngModel)]="product.name" placeholder="">
           </div>
           <div class="form-group col-md-4">
-            <label for="exampleInputEmail1">Precio</label>
+            <label for="exampleInputEmail1" class="mb-1">Precio</label>
             <input type="number" name="price" class="form-control" [(ngModel)]="product.price" placeholder="">
           </div>
         </div>
         <div class="row">
           <div class="form-group col-md-4">
-            <label for="exampleInputEmail1">Categoría</label>
+            <label for="exampleInputEmail1" class="mb-1">Categoría</label>
             <select class="form-control" name="category" [(ngModel)]="product.category"
               (change)="product.category = $event.target.value">
               <option *ngFor="let categoria of categorias" [value]="categoria">
@@ -29,7 +29,7 @@
             </select>
           </div>
           <div class="form-group col-md-4">
-            <label for="exampleInputEmail1">Estado</label>
+            <label for="exampleInputEmail1" class="mb-1">Estado</label>
             <select class="form-control" [(ngModel)]="product.show" name="show"
               (change)="product.show = $event.target.value">
               <option *ngFor="let estado of estados" [value]="estado.status">
@@ -38,7 +38,7 @@
             </select>
           </div>
           <div class="form-group col-md-4">
-            <label for="exampleInputEmail1">Oferta</label>
+            <label for="exampleInputEmail1" class="mb-1">Oferta</label>
             <select class="form-control" [(ngModel)]="product.sale" name="sale"
               (change)="product.sale = $event.target.value">
               <option *ngFor="let oferta of ofertas" [value]="oferta.status">
@@ -49,7 +49,7 @@
         </div>
         <div class="row">
           <div class="form-group col-md-12">
-            <label for="exampleInputEmail1">Detalles</label>
+            <label for="exampleInputEmail1" class="mb-1">Detalles</label>
             <textarea class="form-control" aria-label="With textarea" name="detail" type="text"
               [(ngModel)]="product.detail"></textarea>
             <!--   <input type="text" name="detail" class="form-control" placeholder=""> -->
