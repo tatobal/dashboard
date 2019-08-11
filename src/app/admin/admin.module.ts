@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { ProductsComponent } from './products/products.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LoginGuard } from '../guards/login.guard';
+import { HeaderAdminComponent } from './header-admin/header-admin.component';
 
 
 
@@ -24,7 +25,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ProductsComponent, LoginComponent],
+  declarations: [ProductsComponent, LoginComponent, HeaderAdminComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -34,4 +35,4 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ]
 })
-export class AdministradorModule { }
+export class AdminModule { }

@@ -5,7 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { AdministradorModule } from '../app/admin/administrador.module';
+import { AdminModule } from '../app/admin/admin.module';
 import { WebsiteModule } from './website/website.module';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,7 +27,7 @@ import { ConectionService } from './services/conection.service';
     AppComponent,
   ],
   imports: [
-    AdministradorModule,
+    AdminModule,
     WebsiteModule,
     BrowserModule,
     NgbModule,

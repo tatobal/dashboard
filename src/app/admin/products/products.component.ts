@@ -20,6 +20,9 @@ export class ProductsComponent implements OnInit {
   alert: boolean;
   message: string;
   icons = { faEdit, faTrash, faBan, faPlusCircle };
+  categorias = ['Tecnología', 'Comida', 'Hogar'];
+  estados = [{nombre: 'Habilitado', status: true}, {nombre: 'Desabilitado', status: false}];
+  ofertas = [{nombre: 'Si', status: true}, {nombre: 'No', status: false}];
 
   constructor(
     private conexion: ConectionService,
@@ -37,6 +40,7 @@ export class ProductsComponent implements OnInit {
   }
 
   addProduct() {
+    console.log('Producto: ', this.product);
     this.conexion.addProducts(this.product);
     this.product = {} as Products;
     this.alert = true;
@@ -72,7 +76,7 @@ export class ProductsComponent implements OnInit {
   }
 
   detailProduct(detailProductModal, product) {
-    this.modalService.open(detailProductModal, { centered: true });
+    this.modalService.open(detailProductModal, { centered: true, size: 'lg' });
     this.editProduct = product;
   }
 
