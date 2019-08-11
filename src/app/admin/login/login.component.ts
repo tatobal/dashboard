@@ -18,17 +18,17 @@ export class LoginComponent implements OnInit {
 
 
   constructor(public loginService: LoginService, public afAuth: AngularFireAuth, private router: Router) {
-    console.log(this.email);
   }
 
 
   ngOnInit() {
+    console.log('bienvenido a login');
   }
 
   login() {
     this.loginService.login(this.email, this.password).then(value => {
       this.msg = value;
-      this.router.navigate(['admin/products']);
+      this.router.navigate(['admin/productos']);
       this.display = true;
     })
       .catch(err => {

@@ -23,6 +23,7 @@ export class LoginGuard implements CanActivate {
             .pipe(tap(auth => {
                 if (!auth) {
                     this.router.navigate(['/admin']);
+                    console.log('Error en Guards. No hubo conecciòn con firebase');
                 }
             }
             ));
