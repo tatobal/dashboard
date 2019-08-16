@@ -11,7 +11,6 @@ import { LoginGuard } from '../guards/login.guard';
 import { HeaderAdminComponent } from './header-admin/header-admin.component';
 
 
-
 const routes: Routes = [
   {
     path: 'admin',

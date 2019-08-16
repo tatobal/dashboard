@@ -5,6 +5,9 @@ import { LoginService } from '../../services/login.service';
 import { Products } from '../../models/products';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faEdit, faTrash, faBan, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -13,6 +16,9 @@ import { faEdit, faTrash, faBan, faPlusCircle } from '@fortawesome/free-solid-sv
   providers: [NgbModalConfig, NgbModal]
 })
 export class ProductsComponent implements OnInit {
+  uploadPercent: Observable<number>;
+  downloadURL: Observable<string>;
+
   p = 1;
   product = {} as Products;
   editProduct = {} as Products;
@@ -29,7 +35,8 @@ export class ProductsComponent implements OnInit {
     config: NgbModalConfig,
     private modalService: NgbModal,
     private login: LoginService,
-    private router: Router) {
+    private router: Router,
+    private storage: AngularFireStorage) {
     this.alert = false;
   }
 
@@ -39,8 +46,27 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  uploadFile(event) {
+    const id = Math.random().toString(36).substring(2);
+    const file = event.target.files[0];
+    console.log('archivo: ', file);
+    console.log('nombre: ', id);
+    const filePath = `uploads/item_${id}`;
+    const fileRef = this.storage.ref(filePath);
+    console.log('paso el ref');
+    const task = this.storage.upload(filePath, file);
+    console.log('paso el task');
+
+    // observe percentage changes
+    this.uploadPercent = task.percentageChanges();
+    // get notified when the download URL is available
+    task.snapshotChanges().pipe(
+        finalize(() => this.downloadURL = fileRef.getDownloadURL() )
+     )
+    .subscribe();
+  }
+
   addProduct() {
-    console.log('Producto: ', this.product);
     this.conexion.addProducts(this.product);
     this.product = {} as Products;
     this.alert = true;
@@ -48,6 +74,7 @@ export class ProductsComponent implements OnInit {
     setTimeout(() => {
       this.alert = false;
     }, 2000);
+
   }
 
   deleteProduct(product) {
